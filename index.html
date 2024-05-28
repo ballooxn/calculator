@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>balloon calculator</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div id="main-container">
+      <div id="calculator">
+        <div id="display">0</div>
+        <div id="buttons-container">
+          <div id="first-row">
+            <button class="special" id="clear">AC</button>
+            <button class="special" id="delete">
+              <img
+                src="backspace-image.png"
+                alt="DEL"
+                width="15px"
+                height="15px"
+                id="backspace-image"
+              />
+            </button>
+            <button class="special" id="negative">-/+</button>
+            <button class="operators" id="divide">/</button>
+          </div>
+          <div id="second-row">
+            <button class="numbers" id="one">1</button>
+            <button class="numbers" id="two">2</button>
+            <button class="numbers" id="three">3</button>
+            <button class="operators" id="multiply">*</button>
+          </div>
+          <div id="third-row">
+            <button class="numbers" id="four">4</button>
+            <button class="numbers" id="five">5</button>
+            <button class="numbers" id="six">6</button>
+            <button class="operators" id="subtract">-</button>
+          </div>
+          <div id="fourth-row">
+            <button class="numbers" id="seven">7</button>
+            <button class="numbers" id="eight">8</button>
+            <button class="numbers" id="nine">9</button>
+            <button class="operators" id="add">+</button>
+          </div>
+          <div id="fifth-row">
+            <button class="numbers" id="zero">0</button>
+            <button class="numbers" id="decimal">.</button>
+            <button class="operators" id="equals">=</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
