@@ -3,23 +3,36 @@ let secondNumber = [];
 let operator;
 let answer;
 let displayArray = [];
+const display = document.querySelector("#display");
 
 function operate() {
   let newFirst = Number(firstNumber.join(""));
   let newSecond = Number(secondNumber.join(""));
-  let answer;
+  let answer = 0;
+  console.log(newFirst);
+  console.log(newSecond);
+  console.log(operator);
   switch (operator) {
     case "+":
       answer = add(newFirst, newSecond);
+      break
     case "-":
       answer = subtract(newFirst, newSecond);
+      break
     case "*":
       answer = multiply(newFirst, newSecond);
+      break
     case "/":
       answer = divide(newFirst, newSecond);
+      break
+    default: 
+      return "ERROR";
   }
+  console.log(answer);
   firstNumber = [answer];
   secondNumber = [];
+  displayArray = [answer];
+  display.textContent = displayArray.join("");
   return true;
 }
 
@@ -47,8 +60,6 @@ numberButtons.forEach(function (elem) {
 operatorButtons.forEach(function (elem) {
   elem.addEventListener("click", () => updateDisplay(elem.textContent, true));
 });
-
-const display = document.querySelector("#display");
 
 function updateDisplay(e, isOperator) {
 
