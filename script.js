@@ -34,6 +34,7 @@ function operate() {
   secondNumber = [];
   displayArray = [answer];
   display.textContent = displayArray.join("");
+  operator = undefined;
   return true;
 }
 
@@ -68,6 +69,9 @@ function updateSecondDisplay() {
 
 function updateDisplay(e, isOperator) {
   // change operator, and number variables
+  
+  console.log(secondNumber);
+  console.log(displayArray);
   if (
     e == "=" ||
     (isOperator &&
@@ -84,22 +88,20 @@ function updateDisplay(e, isOperator) {
       displayArray.includes("+") ||
       displayArray.includes("/") ||
       displayArray.includes("*")) &&
-    secondNumber.length !== 0
-  ) {
-    // We are continuing the second number
-    secondNumber.push(e);
-    console.log("second");
-  } else if (
-    (displayArray.includes("-") ||
-      displayArray.includes("+") ||
-      displayArray.includes("/") ||
-      displayArray.includes("*")) &&
     !secondNumber.length
   ) {
     // We are starting the second number.
     displayArray = [];
     secondNumber.push(e);
-  } else {
+  } 
+  else if (
+    operator && (secondNumber.length)
+  ) {
+    // We are continuing the second number
+    secondNumber.push(e);
+    console.log("second");
+  }
+  else {
     // We are in the first number
     firstNumber.push(e);
     console.log("first");
@@ -120,9 +122,7 @@ function updateDisplay(e, isOperator) {
     displayArray.push(e);
     secondDisplayArray.push(e)
   }
-  console.log(secondDisplayArray);
   answer = undefined;
-  console.log(answer);
   updateSecondDisplay();
 }
 
@@ -139,3 +139,27 @@ clearButton.addEventListener("click", () => {
   secondNumber = [];
   operator = undefined;
 });
+
+const deleteButton = document.querySelector("#delete");
+
+deleteButton.addEventListener("click", () => {
+  // If first number, else if operator, else its the second number
+  if (operator === undefined && secondNumber.length === 0) {
+    firstNumber.pop();
+    console.log("delete first number");
+  }
+  else if (operator !== undefined && secondNumber.length === 0) {
+    operator = undefined;
+    console.log("delete operator");
+  }
+  else {
+    secondNumber.pop();
+    console.log("delete second number");
+  }
+
+  //update main display + second display
+  secondDisplayArray.pop();
+  updateSecondDisplay();
+  displayArray.pop();
+  display.textContent = displayArray.join("");
+})
