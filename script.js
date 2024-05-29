@@ -3,12 +3,13 @@ let secondNumber = [];
 let operator;
 let answer;
 let displayArray = [];
+let secondDisplayArray = [];
 const display = document.querySelector("#display");
+const secondDisplay = document.querySelector("#top-display");
 
 function operate() {
   let newFirst = Number(firstNumber.join(""));
   let newSecond = Number(secondNumber.join(""));
-  let answer = 0;
   console.log(newFirst);
   console.log(newSecond);
   console.log(operator);
@@ -61,6 +62,10 @@ operatorButtons.forEach(function (elem) {
   elem.addEventListener("click", () => updateDisplay(elem.textContent, true));
 });
 
+function updateSecondDisplay() {
+  secondDisplay.textContent = secondDisplayArray.join("");
+}
+
 function updateDisplay(e, isOperator) {
   // change operator, and number variables
   if (
@@ -68,9 +73,11 @@ function updateDisplay(e, isOperator) {
     (isOperator &&
       operator)
   ) {
+    // This is an equals sign or a secondary operator
     console.log("operate");
     operate();
   } else if (isOperator && e !== "=") {
+    // This is an add, subtract, multiply, or divide
     operator = e;
   } else if (
     (displayArray.includes("-") ||
@@ -79,6 +86,7 @@ function updateDisplay(e, isOperator) {
       displayArray.includes("*")) &&
     secondNumber.length !== 0
   ) {
+    // We are continuing the second number
     secondNumber.push(e);
     console.log("second");
   } else if (
@@ -92,16 +100,30 @@ function updateDisplay(e, isOperator) {
     displayArray = [];
     secondNumber.push(e);
   } else {
+    // We are in the first number
     firstNumber.push(e);
     console.log("first");
   }
+  
+
   // Put it on the display
   if (!isOperator) {
     displayArray.push(e);
     display.innerHTML = displayArray.join("");
-  } else {
-    displayArray.push(e);
+    secondDisplayArray.push(e)
   }
+  else if (e === "=") {
+    secondDisplayArray.push(e);
+    if (answer !== undefined) secondDisplayArray.push(answer);
+  } 
+  else {
+    displayArray.push(e);
+    secondDisplayArray.push(e)
+  }
+  console.log(secondDisplayArray);
+  answer = undefined;
+  console.log(answer);
+  updateSecondDisplay();
 }
 
 //clear the display
@@ -111,6 +133,8 @@ const clearButton = document.querySelector("#clear");
 clearButton.addEventListener("click", () => {
   displayArray = [];
   display.innerHTML = "0";
+  secondDisplay.innerHTML = "";
+  secondDisplayArray = [];
   firstNumber = [];
   secondNumber = [];
   operator = undefined;
