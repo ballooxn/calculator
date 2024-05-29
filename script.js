@@ -15,17 +15,17 @@ function operate() {
   switch (operator) {
     case "+":
       answer = add(newFirst, newSecond);
-      break
+      break;
     case "-":
       answer = subtract(newFirst, newSecond);
-      break
+      break;
     case "*":
       answer = multiply(newFirst, newSecond);
-      break
+      break;
     case "/":
       answer = divide(newFirst, newSecond);
-      break
-    default: 
+      break;
+    default:
       return "ERROR";
   }
   console.log(answer);
@@ -62,32 +62,36 @@ operatorButtons.forEach(function (elem) {
 });
 
 function updateDisplay(e, isOperator) {
-
   // change operator, and number variables
-  if (e == "=") {
+  if (
+    e == "=" ||
+    (isOperator &&
+      operator)
+  ) {
     console.log("operate");
     operate();
   } else if (isOperator && e !== "=") {
     operator = e;
   } else if (
     (displayArray.includes("-") ||
-    displayArray.includes("+") ||
-    displayArray.includes("/") ||
-    displayArray.includes("*")) && secondNumber.length !== 0
-  ) 
-  {
+      displayArray.includes("+") ||
+      displayArray.includes("/") ||
+      displayArray.includes("*")) &&
+    secondNumber.length !== 0
+  ) {
     secondNumber.push(e);
     console.log("second");
-  } 
-  else if ((displayArray.includes("-") ||
-  displayArray.includes("+") ||
-  displayArray.includes("/") ||
-  displayArray.includes("*")) && !secondNumber.length) {
+  } else if (
+    (displayArray.includes("-") ||
+      displayArray.includes("+") ||
+      displayArray.includes("/") ||
+      displayArray.includes("*")) &&
+    !secondNumber.length
+  ) {
     // We are starting the second number.
-    displayArray = []
+    displayArray = [];
     secondNumber.push(e);
-  }
-  else {
+  } else {
     firstNumber.push(e);
     console.log("first");
   }
@@ -95,8 +99,7 @@ function updateDisplay(e, isOperator) {
   if (!isOperator) {
     displayArray.push(e);
     display.innerHTML = displayArray.join("");
-  }
-  else {
+  } else {
     displayArray.push(e);
   }
 }
